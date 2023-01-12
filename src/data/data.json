@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "logo": "https://www.rezultati.com/res/image/data/vwC9RGhl-2B0QucIK.png",
+    "name": "Liverpool FC",
+    "numOfPoints": 0,
+    "played": []
+  },
+  {
+    "id": 2,
+    "logo": "https://www.rezultati.com/res/image/data/rsvCPOh5-d2cNSxrp.png",
+    "name": "Leeds United",
+    "numOfPoints": 0,
+    "played": []
+  },
+  {
+    "id": 3,
+    "logo": "https://www.rezultati.com/res/image/data/fojwJwZA-KYq0Zfel.png",
+    "name": "Newcastle United",
+    "numOfPoints": 0,
+    "played": []
+  },
+  {
+    "id": 4,
+    "logo": "https://www.rezultati.com/res/image/data/naaAVOzB-fcuGVCfD.png",
+    "name": "Fulham FC",
+    "numOfPoints": 0,
+    "played": []
+  },
+  {
+    "id": 5,
+    "logo": "https://www.rezultati.com/res/image/data/GCLLkTzB-f19Yn1Lh.png",
+    "name": "Nottingham Forest",
+    "numOfPoints": 0,
+    "played": []
+  },
+  {
+    "id": 6,
+    "logo": "https://www.rezultati.com/res/image/data/40juIezB-IccPlIAs.png",
+    "name": "Brighton & Hove Albion",
+    "numOfPoints": 0,
+    "played": []
+  }
+]
