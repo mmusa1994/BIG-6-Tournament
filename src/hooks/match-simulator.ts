@@ -7,12 +7,10 @@ export const useMatchSimulator = () => {
     updateMatchArena,
     matchSimulatorHandler,
     playedHistoryHandler,
-    error,
   } = React.useContext(MatchSimulatorContext);
 
   return [
     matchArena,
     { updateMatchArena, matchSimulatorHandler, playedHistoryHandler },
-    error,
   ];
 };

@@ -2,8 +2,21 @@ import React from 'react';
 import { MatchSimulatorContext } from '../providers/MatchSimulatorProvider';
 
 export const useMatch = () => {
-  const { isArenaOpen, isResultSimulated, hostTeam, guestTeam, teamsInPlay } =
-    React.useContext(MatchSimulatorContext);
+  const {
+    isArenaOpen,
+    isResultSimulated,
+    hostTeam,
+    guestTeam,
+    teamsInPlay,
+    error,
+  } = React.useContext(MatchSimulatorContext);
 
-  return { isArenaOpen, isResultSimulated, hostTeam, guestTeam, teamsInPlay };
+  return {
+    isArenaOpen,
+    isResultSimulated,
+    hostTeam,
+    guestTeam,
+    teamsInPlay,
+    error,
+  };
 };

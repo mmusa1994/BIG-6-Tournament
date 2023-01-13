@@ -1,22 +1,20 @@
 import React, { useRef } from 'react';
 import { Modal, Button, Input, Table } from './components';
 import { isValidResult, validationErrors } from './helpers/validations';
-import { useMatchSimulator } from './hooks/match-simulator';
-import { useMatch } from './hooks/match';
+import { columnTemplate, sortedData } from './helpers/table';
+import { useMatchSimulator, useMatch } from './hooks';
 
 import './App.css';
 
 const App: React.FC = () => {
+  const hostScore = useRef<any>(null);
+  const guestScore = useRef<any>(null);
   const [
     matchArena,
     { updateMatchArena, matchSimulatorHandler, playedHistoryHandler },
-    error,
   ] = useMatchSimulator();
 
-  const { isArenaOpen, hostTeam, guestTeam, teamsInPlay } = useMatch();
-
-  const hostScore = useRef<any>(null);
-  const guestScore = useRef<any>(null);
+  const { isArenaOpen, hostTeam, guestTeam, teamsInPlay, error } = useMatch();
 
   const simulateResult = () => {
     hostScore.current.value = Math.floor(Math.random() * 5);
@@ -24,44 +22,16 @@ const App: React.FC = () => {
     updateMatchArena({ isResultSimulated: true });
   };
 
-  const data = React.useMemo(
-    () =>
-      matchArena.data?.sort((a: any, b: any) =>
-        a.numOfPoints > b.numOfPoints ? -1 : 1
-      ),
-    [matchArena]
-  );
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'POSITION',
-        accessor: 'logo',
-      },
-      {
-        Header: 'LOGO',
-        accessor: 'name',
-      },
-      {
-        Header: 'NAME',
-        accessor: 'numOfPoints',
-      },
-      {
-        Header: 'POINTS',
-      },
-    ],
-    []
-  );
+  const data = React.useMemo(() => sortedData(matchArena.data), [matchArena]);
+  const columns = React.useMemo(() => columnTemplate, []);
 
   return (
-    <div className="App flex flex-col items-center justify-center bg-gray-700 h-[100vh] w-full gap-4">
+    <div className="App flex flex-col items-center justify-start bg-gray-900 h-[100vh] w-full gap-4 pt-10">
       <Table columns={columns} data={data} />
       <Button
         variant="secondary"
         text="Pick teams for match"
-        onClick={() => {
-          updateMatchArena({ isArenaOpen: true });
-        }}
+        onClick={() => updateMatchArena({ isArenaOpen: true })}
       />
 
       <Modal
@@ -126,7 +96,7 @@ const App: React.FC = () => {
                 <h3 className="text-white text-xs font-bold bg-orange-700 w-max p-1 m-1">
                   Pick the guest
                 </h3>
-                <div className="flex">
+                <div className="flex flex-wrap">
                   {matchArena.data.map(
                     (club: any) =>
                       !hostTeam?.played?.includes(club.id) &&
@@ -156,7 +126,9 @@ const App: React.FC = () => {
               </div>
             )}
             {hostTeam?.played?.length >= 5 && (
-              <p className="text-white">Played all matches</p>
+              <p className="text-white bg-blue-700 p-2 w-max mt-1">
+                This team played all them matches
+              </p>
             )}
           </div>
         )}
