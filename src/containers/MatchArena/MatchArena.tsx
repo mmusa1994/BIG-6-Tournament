@@ -20,6 +20,7 @@ const MatchArena: React.FC<IMatchArena> = ({
       teamsInPlay: [],
     });
   };
+  const activeMatch = teamsInPlay.length > 1;
 
   return (
     <Modal
@@ -29,11 +30,23 @@ const MatchArena: React.FC<IMatchArena> = ({
       maxWidth="780px"
       minHeight="520px"
       actions={
-        <Button
-          onClick={() => closeModalHandler()}
-          text="Cancel"
-          variant="delete"
-        />
+        <div className="flex flx-wrap items-center justify-between w-full gap-2">
+          {!activeMatch ? (
+            <p className="italic text-gray-400">
+              Hint: Each team can play against other teams just once
+            </p>
+          ) : (
+            <p className="italic text-gray-400">
+              Hint: You can simulate or manually enter the result in the input
+              field
+            </p>
+          )}
+          <Button
+            onClick={() => closeModalHandler()}
+            text="Cancel"
+            variant="delete"
+          />
+        </div>
       }
     >
       {teamsInPlay.length < 2 ? (
