@@ -1,15 +1,7 @@
-import { Fragment, ReactNode, useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { IModal } from '../../types/types';
 
-interface IModal {
-  title: string;
-  children: ReactNode | undefined;
-  actions?: ReactNode | undefined;
-  show: boolean;
-  close: () => void;
-  maxWidth?: string;
-  minHeight?: string;
-}
 const Modal = ({
   title,
   children,

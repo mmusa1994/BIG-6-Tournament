@@ -2,14 +2,9 @@ import React from 'react';
 import { MatchField, PickTeam } from '..';
 import { Button, Modal } from '../../components';
 import { useMatch, useMatchSimulator } from '../../hooks';
+import { IMatchArena } from '../../types/types';
 
-type Props = {
-  hostScore: any;
-  guestScore: any;
-  simulateResultHandler: () => void;
-};
-
-const MatchArena: React.FC<Props> = ({
+const MatchArena: React.FC<IMatchArena> = ({
   hostScore,
   guestScore,
   simulateResultHandler,
@@ -37,7 +32,7 @@ const MatchArena: React.FC<Props> = ({
         <Button
           onClick={() => closeModalHandler()}
           text="Cancel"
-          variant="secondary"
+          variant="delete"
         />
       }
     >

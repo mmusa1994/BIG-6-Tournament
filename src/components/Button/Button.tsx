@@ -1,16 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import { IButton } from '../../types/types';
 
-interface IButton {
-  disabled?: boolean;
-  onClick: () => void;
-  text: string;
-  type?: 'submit' | 'reset' | 'button';
-  size?: string;
-  sizeH?: string;
-  variant?: 'primary' | 'secondary' | 'text' | 'delete';
-  position?: 'left' | 'center' | 'right';
-  icon?: JSX.Element | ReactNode;
-}
 const Button: React.FC<IButton> = ({
   disabled,
   onClick,
@@ -32,7 +22,7 @@ const Button: React.FC<IButton> = ({
       
       ${
         variant === 'primary' &&
-        `bg-indigo-500  active:bg-bg-indigo-900  hover:bg-indigo-800 `
+        `bg-green-600  active:bg-bg-indigo-900  hover:bg-green-800 `
       } ${
         variant === 'secondary' &&
         'bg-transparent border-solid border border-gray-500 hover:bg-transparent active:bg-transparent hover:opacity-75 hover:bg-gray-500'

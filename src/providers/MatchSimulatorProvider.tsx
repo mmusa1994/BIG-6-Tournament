@@ -1,20 +1,10 @@
 import React from 'react';
 import clubsData from '../data/data.json';
+import { IMatchSimulatorData } from '../types/types';
 
-export const MatchSimulatorContext = React.createContext<{
-  matchArena: any;
-  updateMatchArena: (data: any) => void;
-  matchSimulatorHandler: (score1: number, score2: number) => void;
-  playedHistoryHandler: () => void;
-  error: any;
-  hostTeam: any;
-  guestTeam: any;
-  teamsInPlay: any;
-  isArenaOpen: boolean;
-  isResultSimulated: boolean;
-}>({
+export const MatchSimulatorContext = React.createContext<IMatchSimulatorData>({
   matchArena: { data: null },
-  error: null,
+  error: undefined,
   hostTeam: null,
   guestTeam: null,
   teamsInPlay: [],
@@ -38,7 +28,7 @@ export const MatchSimulatorProvider = ({
     teamsInPlay: [],
     isResultSimulated: false,
     playedMatches: [],
-    error: null,
+    error: undefined,
   });
 
   let {
@@ -116,6 +106,8 @@ export const MatchSimulatorProvider = ({
       hostTeam: null,
       guestTeam: null,
     });
+
+    console.log(matchArena);
   };
 
   return (

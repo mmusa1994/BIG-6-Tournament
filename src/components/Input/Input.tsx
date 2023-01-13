@@ -1,23 +1,9 @@
 import React from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { InputProps } from '../../types/types';
+
 import './input.css';
 
-interface InputProps
-  extends React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
-  errorMessage?: string;
-  firstAction?: JSX.Element | null;
-  label?: string;
-  secondAction?: JSX.Element | null;
-  icon?: JSX.Element;
-  searchIcon?: boolean;
-  inputRef?: React.Ref<any>;
-  containerClasses?: string;
-  inputWrapperStyle?: string;
-  width?: string;
-}
 const Input: React.FC<InputProps> = ({
   errorMessage,
   firstAction,

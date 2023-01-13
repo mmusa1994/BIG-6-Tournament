@@ -1,10 +1,8 @@
 import React, { useRef } from 'react';
-import { Modal, Button, Table } from './components';
+import { Button, Table } from './components';
+import { MatchArena, MatchLogs } from './containers';
+import { useMatchSimulator } from './hooks';
 import { columnTemplate, sortedData } from './helpers/table';
-import { useMatchSimulator, useMatch } from './hooks';
-
-import './App.css';
-import { MatchField, PickTeam, MatchArena, MatchLogs } from './containers';
 
 const App: React.FC = () => {
   const hostScore = useRef<any>(null);
@@ -21,7 +19,7 @@ const App: React.FC = () => {
   const columns = React.useMemo(() => columnTemplate, []);
 
   return (
-    <div className="App flex flex-col items-center justify-start bg-gray-900 h-[100vh] w-full gap-4 pt-10">
+    <div className="flex flex-col items-center justify-start text-center bg-gray-900 h-[100vh] w-full gap-4 pt-10">
       <h3 className="text-base text-white mb-2">Tournament Table</h3>
       <Table columns={columns} data={data} />
       <Button
@@ -34,7 +32,9 @@ const App: React.FC = () => {
         guestScore={guestScore}
         simulateResultHandler={simulateResultHandler}
       />
-      <h3 className="text-base text-white mb-2">Matches History</h3>
+      {matchArena.playedMatches.length && (
+        <h3 className="text-base text-white mb-2">Matches History</h3>
+      )}
       <MatchLogs />
     </div>
   );
