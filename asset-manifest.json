@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/BIG-6-Tournament/static/css/main.693f192e.css",
+    "main.js": "/BIG-6-Tournament/static/js/main.f1303191.js",
+    "static/js/787.f6aac565.chunk.js": "/BIG-6-Tournament/static/js/787.f6aac565.chunk.js",
+    "index.html": "/BIG-6-Tournament/index.html",
+    "main.693f192e.css.map": "/BIG-6-Tournament/static/css/main.693f192e.css.map",
+    "main.f1303191.js.map": "/BIG-6-Tournament/static/js/main.f1303191.js.map",
+    "787.f6aac565.chunk.js.map": "/BIG-6-Tournament/static/js/787.f6aac565.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.693f192e.css",
+    "static/js/main.f1303191.js"
+  ]
+}
