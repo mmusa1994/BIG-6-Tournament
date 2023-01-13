@@ -37,7 +37,7 @@ const App: React.FC = () => {
         guestScore={guestScore}
         simulateResultHandler={simulateResultHandler}
       />
-      {matchArena.playedMatches.length && (
+      {!!matchArena.playedMatches.length && (
         <>
           <h3 className="text-base text-white mb-2">Matches History</h3>
           <MatchLogs />
