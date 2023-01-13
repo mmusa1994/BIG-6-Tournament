@@ -5,6 +5,8 @@ import { isValidResult, validationErrors } from '../../helpers/validations';
 import { useMatch, useMatchSimulator } from '../../hooks';
 import { IMatchArena } from '../../types/types';
 
+import './match-field.css';
+
 const MatchField: React.FC<IMatchArena> = ({
   hostScore,
   guestScore,
@@ -19,8 +21,8 @@ const MatchField: React.FC<IMatchArena> = ({
   return (
     <div>
       <div className="flex flex-col items-center justify-center gap-4 h-[400px]">
-        <div className="flex flex-wrap items-center justify-center gap-2 w-full">
-          <div className="flex flex-col items-center justify-center w-1/5">
+        <div className="result-container flex flex-wrap items-center justify-center gap-2 w-full">
+          <div className="flex flex-col items-center justify-center w-1/4">
             <img
               key={hostTeam?.id}
               className="h-[90px] w-[90px] m-2 object-contain"
@@ -31,40 +33,42 @@ const MatchField: React.FC<IMatchArena> = ({
               {hostTeam?.name}
             </p>
           </div>
-          <div className="h-[50px]">
-            <Input
-              width="80px"
-              name="hostScore"
-              inputRef={hostScore}
-              required={true}
-              type="number"
-              onChange={(e) => {
-                !isValidResult(e.target.value)
-                  ? updateMatchArena({ error: validationErrors.inputError })
-                  : updateMatchArena({ error: null });
-                hostScore.current.value = e.target.value;
-              }}
-              errorMessage={error}
-            />
+          <div className="flex items-center justify-center gap-2 w-[300px]">
+            <div className="h-[50px]">
+              <Input
+                width="80px"
+                name="hostScore"
+                inputRef={hostScore}
+                required={true}
+                type="number"
+                onChange={(e) => {
+                  !isValidResult(e.target.value)
+                    ? updateMatchArena({ error: validationErrors.inputError })
+                    : updateMatchArena({ error: null });
+                  hostScore.current.value = e.target.value;
+                }}
+                errorMessage={error}
+              />
+            </div>
+            <p className="text-xl text-white">vs</p>
+            <div className="h-[50px]">
+              <Input
+                width="80px"
+                name="guestScore"
+                inputRef={guestScore}
+                required
+                type="number"
+                onChange={(e) => {
+                  !isValidResult(e.target.value)
+                    ? updateMatchArena({ error: validationErrors.inputError })
+                    : updateMatchArena({ error: null });
+                  guestScore.current.value = e.target.value;
+                }}
+                errorMessage={error}
+              />
+            </div>
           </div>
-          <p className="text-xl text-white">vs</p>
-          <div className="h-[50px]">
-            <Input
-              width="80px"
-              name="guestScore"
-              inputRef={guestScore}
-              required
-              type="number"
-              onChange={(e) => {
-                !isValidResult(e.target.value)
-                  ? updateMatchArena({ error: validationErrors.inputError })
-                  : updateMatchArena({ error: null });
-                guestScore.current.value = e.target.value;
-              }}
-              errorMessage={error}
-            />
-          </div>
-          <div className="flex flex-col items-center justify-center w-1/5">
+          <div className="flex flex-col items-center justify-center w-1/4">
             <img
               key={guestTeam?.id}
               className="h-[100px] w-[100px] m-2 object-contain"

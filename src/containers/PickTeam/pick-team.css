@@ -1,0 +1,17 @@
+.logo {
+  height: 75px;
+  width: 75px;
+}
+.header {
+  font-size: small;
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+    height: 40px;
+    width: 40px;
+  }
+  .header {
+    font-size: x-small;
+  }
+}

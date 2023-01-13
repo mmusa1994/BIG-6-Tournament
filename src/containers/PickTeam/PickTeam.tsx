@@ -1,14 +1,16 @@
 import React from 'react';
 import { useMatch, useMatchSimulator } from '../../hooks';
 
+import './pick-team.css';
+
 const PickTeam: React.FC = () => {
   const [matchArena, { updateMatchArena }] = useMatchSimulator();
   const { hostTeam, guestTeam } = useMatch();
 
   return (
-    <div className="h-[310px]">
+    <div className="h-[320px]">
       <div className="flex flex-col">
-        <h3 className="text-white text-xs font-bold bg-green-700 w-max p-1 m-1">
+        <h3 className="header text-white font-bold bg-green-700 w-max p-1 m-1">
           Pick the host
         </h3>
         <div className="flex flex-wrap">
@@ -22,7 +24,7 @@ const PickTeam: React.FC = () => {
               }}
             >
               <img
-                className="h-[75px] w-[75px] m-2 object-contain"
+                className="logo m-2 object-contain"
                 src={club?.logo}
                 alt="logo"
               />
@@ -33,7 +35,7 @@ const PickTeam: React.FC = () => {
       </div>
       {hostTeam?.played?.length < 5 && (
         <div className="mt-2">
-          <h3 className="text-white text-xs font-bold bg-orange-700 w-max p-1 m-1">
+          <h3 className="header text-white font-bold bg-orange-700 w-max p-1 m-1">
             Pick the guest
           </h3>
           <div className="flex flex-wrap">
@@ -53,7 +55,7 @@ const PickTeam: React.FC = () => {
                     }}
                   >
                     <img
-                      className="h-[75px] w-[75px] m-2 object-contain"
+                      className="logo m-2 object-contain"
                       src={club?.logo}
                       alt="logo"
                     />

@@ -22,11 +22,11 @@ const MatchLogs: React.FC = () => {
             className="flex flex-wrap items-center justify-start text-white text-center gap-1 mb-2 border rounded-sm border-gray-500 p-2"
             key={i}
           >
-            <span className="w-[155px]">{hostName}</span>
+            <span className="w-[120px]">{hostName}</span>
 
             <div className="w-[80px]">
               <span
-                className={`text-xs ml-2 mr-1
+                className={`text-xs ml-1 mr-1
                           ${hostWinner && 'bg-green-700 p-1'} 
                           ${guestWinner && 'bg-red-700 p-1'}
                           ${draw && 'bg-yellow-600 p-1'}
@@ -36,7 +36,7 @@ const MatchLogs: React.FC = () => {
               </span>
               vs
               <span
-                className={`text-xs mr-2 ml-1
+                className={`text-xs mr-1 ml-1
                           ${guestWinner && 'bg-green-700 p-1'} 
                           ${hostWinner && 'bg-red-700 p-1'}
                           ${draw && 'bg-yellow-600 p-1'}
@@ -45,7 +45,7 @@ const MatchLogs: React.FC = () => {
                 {guestScore}
               </span>
             </div>
-            <span className="w-[155px]">{guestName}</span>
+            <span className="w-[120px]">{guestName}</span>
           </div>
         );
       })}

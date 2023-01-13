@@ -1,0 +1,9 @@
+.result-container {
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 760px) {
+  .result-container {
+    flex-direction: column;
+  }
+}
