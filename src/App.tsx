@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
+import { NoSymbolIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { Button, Table } from './components';
 import { MatchArena, MatchLogs } from './containers';
 import { useMatchSimulator } from './hooks';
 import { columnTemplate, sortedData } from './helpers/table';
-import { PlayIcon } from '@heroicons/react/24/solid';
 
 const App: React.FC = () => {
   const hostScore = useRef<any>(null);
@@ -22,6 +22,11 @@ const App: React.FC = () => {
   const playBtnText = allMatchPlayed
     ? 'Tournament finished'
     : 'Play Tournament';
+  const btnIcon = allMatchPlayed ? (
+    <NoSymbolIcon className="w-4 h-4" />
+  ) : (
+    <PlayIcon className="w-4 h-4" />
+  );
 
   return (
     <div className="flex flex-col items-center justify-start text-center bg-gray-900 h-[100vh] w-full gap-4 pt-10">
@@ -31,7 +36,7 @@ const App: React.FC = () => {
         variant="secondary"
         text={playBtnText}
         onClick={() => updateMatchArena({ isArenaOpen: true })}
-        icon={<PlayIcon className="w-4 h-4" />}
+        icon={btnIcon}
         disabled={allMatchPlayed}
       />
       <MatchArena

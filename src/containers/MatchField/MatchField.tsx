@@ -25,7 +25,7 @@ const MatchField: React.FC<IMatchArena> = ({
           <div className="flex flex-col items-center justify-center w-1/4">
             <img
               key={hostTeam?.id}
-              className="h-[90px] w-[90px] m-2 object-contain"
+              className="match-logo m-2 object-contain"
               src={hostTeam?.logo}
               alt="logo"
             />
@@ -71,7 +71,7 @@ const MatchField: React.FC<IMatchArena> = ({
           <div className="flex flex-col items-center justify-center w-1/4">
             <img
               key={guestTeam?.id}
-              className="h-[100px] w-[100px] m-2 object-contain"
+              className="match-logo m-2 object-contain"
               src={guestTeam?.logo}
               alt="logo"
             />

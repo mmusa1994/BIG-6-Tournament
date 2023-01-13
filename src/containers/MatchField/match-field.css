@@ -2,8 +2,17 @@
   flex-direction: row;
 }
 
+.match-logo {
+  width: 100px;
+  height: 100px;
+}
+
 @media only screen and (max-width: 760px) {
   .result-container {
     flex-direction: column;
+  }
+  .match-logo {
+    width: 60px;
+    height: 60px;
   }
 }
