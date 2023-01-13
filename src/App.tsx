@@ -1,92 +1,35 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Modal, Button, Input, Table } from './components';
 import { isValidResult, validationErrors } from './helpers/validations';
-import data1 from './data/data.json';
+import { useMatchSimulator } from './hooks/match-simulator';
+import { useMatch } from './hooks/match';
 
 import './App.css';
 
 const App: React.FC = () => {
-  const [stateData, setStateData] = useState<any>(data1);
-  const [toggle, setToggle] = useState<boolean>(false);
-  const [pickedHostTeam, setPickedHostTeam] = useState<any>(null);
-  const [match, setMatch] = useState<any>([]);
-  const [numOfPlayedMatch, setNumOfPlayedMatch] = useState<number>(0);
-  const [inputError, setInputError] = useState<string>('');
-  const [simulatedResult, setSimulatedResult] = useState<boolean>(false);
-  const team1Result = useRef<any>(null);
-  const team2Result = useRef<any>(null);
+  const [
+    matchArena,
+    { updateMatchArena, matchSimulatorHandler, playedHistoryHandler },
+    error,
+  ] = useMatchSimulator();
 
-  const openMatchArea = () => {
-    setToggle(true);
-  };
+  const { isArenaOpen, hostTeam, guestTeam, teamsInPlay } = useMatch();
 
-  const playMatchHandler = (team1: any, team2: any) => {
-    const t1r = team1Result.current.value;
-    const t2r = team2Result.current.value;
-
-    const newStateData = stateData.map((club: any) => {
-      if (t1r > t2r && team1.id === club.id) {
-        return {
-          ...club,
-          numOfPoints: club.numOfPoints + 3,
-        };
-      } else if (t1r < t2r && team2.id === club.id) {
-        return {
-          ...club,
-          numOfPoints: club.numOfPoints + 3,
-        };
-      } else if (
-        t1r === t2r &&
-        (team2.id === club.id || team1.id === club.id)
-      ) {
-        return {
-          ...club,
-          numOfPoints: club.numOfPoints + 1,
-        };
-      } else return club;
-    });
-    setStateData(newStateData);
-    setMatch([]);
-    setNumOfPlayedMatch(numOfPlayedMatch + 1);
-    setSimulatedResult(false);
-    setToggle(false);
-    setPickedHostTeam(null);
-  };
-
-  const pickGuestHandler = (team: any) => {
-    const hostTeam = stateData.find((el: any) => pickedHostTeam?.id === el.id);
-    const newStateData = stateData.map((club: any) => {
-      if (hostTeam.id === club?.id) {
-        return {
-          ...club,
-          played: [...club.played, team.id],
-        };
-      } else if (team.id === club?.id) {
-        return {
-          ...club,
-          played: [...club.played, hostTeam.id],
-        };
-      } else return club;
-    });
-    setStateData(newStateData);
-    setPickedHostTeam(
-      newStateData.find((el: any) => el.id === pickedHostTeam?.id)
-    );
-    setMatch([hostTeam, team]);
-  };
+  const hostScore = useRef<any>(null);
+  const guestScore = useRef<any>(null);
 
   const simulateResult = () => {
-    team1Result.current.value = Math.floor(Math.random() * 5);
-    team2Result.current.value = Math.floor(Math.random() * 5);
-    setSimulatedResult(true);
+    hostScore.current.value = Math.floor(Math.random() * 5);
+    guestScore.current.value = Math.floor(Math.random() * 5);
+    updateMatchArena({ isResultSimulated: true });
   };
 
   const data = React.useMemo(
     () =>
-      stateData?.sort((a: any, b: any) =>
+      matchArena.data?.sort((a: any, b: any) =>
         a.numOfPoints > b.numOfPoints ? -1 : 1
       ),
-    [stateData]
+    [matchArena]
   );
 
   const columns = React.useMemo(
@@ -110,24 +53,27 @@ const App: React.FC = () => {
     []
   );
 
-  const disableBtnState = !!inputError || !simulatedResult;
-
   return (
     <div className="App flex flex-col items-center justify-center bg-gray-700 h-[100vh] w-full gap-4">
-      <Table columns={columns} data={data} defaultColumn={1} />
+      <Table columns={columns} data={data} />
       <Button
         variant="secondary"
         text="Pick teams for match"
-        onClick={() => openMatchArea()}
+        onClick={() => {
+          updateMatchArena({ isArenaOpen: true });
+        }}
       />
 
       <Modal
         title="Match Arena"
-        show={toggle}
+        show={isArenaOpen}
         close={() => {
-          setToggle(false);
-          setPickedHostTeam(null);
-          match.length && setMatch([]);
+          updateMatchArena({
+            isArenaOpen: false,
+            hostTeam: null,
+            guestTeam: null,
+            teamsInPlay: [],
+          });
         }}
         maxWidth="780px"
         minHeight="520px"
@@ -135,9 +81,12 @@ const App: React.FC = () => {
           <div className="w-full flex justify-end gap-2 mt-3">
             <Button
               onClick={() => {
-                setToggle(false);
-                setPickedHostTeam(null);
-                match.length && setMatch([]);
+                updateMatchArena({
+                  isArenaOpen: false,
+                  hostTeam: null,
+                  guestTeam: null,
+                  teamsInPlay: [],
+                });
               }}
               text="Cancel"
               variant="secondary"
@@ -145,20 +94,22 @@ const App: React.FC = () => {
           </div>
         }
       >
-        {match?.length < 2 && (
+        {teamsInPlay.length < 2 && (
           <div className="h-[310px]">
             <div className="flex flex-col">
               <h3 className="text-white text-xs font-bold bg-green-700 w-max p-1 m-1">
                 Pick the host
               </h3>
               <div className="flex flex-wrap">
-                {stateData.map((club: any) => (
+                {matchArena.data.map((club: any) => (
                   <div
                     key={club.id}
                     className={`flex flex-col items-center justify-start w-[100px] cursor-pointer rounded hover:bg-gray-600 m-1
-                    ${pickedHostTeam?.id === club.id && 'bg-gray-400'}
+                    ${hostTeam?.id === club.id && 'bg-gray-400'}
                     `}
-                    onClick={() => setPickedHostTeam(club)}
+                    onClick={() => {
+                      updateMatchArena({ hostTeam: club });
+                    }}
                   >
                     <img
                       className="h-[75px] w-[75px] m-2 object-contain"
@@ -170,22 +121,27 @@ const App: React.FC = () => {
                 ))}
               </div>
             </div>
-            {pickedHostTeam?.played.length < 5 && (
+            {hostTeam?.played?.length < 5 && (
               <div className="mt-2">
                 <h3 className="text-white text-xs font-bold bg-orange-700 w-max p-1 m-1">
                   Pick the guest
                 </h3>
                 <div className="flex">
-                  {stateData.map(
+                  {matchArena.data.map(
                     (club: any) =>
-                      !pickedHostTeam?.played?.includes(club.id) &&
-                      pickedHostTeam?.id !== club.id && (
+                      !hostTeam?.played?.includes(club.id) &&
+                      hostTeam?.id !== club.id && (
                         <div
                           key={club.id}
                           className={`flex flex-col items-center justify-start w-[100px] cursor-pointer rounded hover:bg-gray-600 m-1
-                    ${pickedHostTeam?.id === club.id && 'bg-gray-400'}
+                    ${hostTeam?.id === club.id && 'bg-gray-400'}
                     `}
-                          onClick={() => pickGuestHandler(club)}
+                          onClick={() => {
+                            updateMatchArena({
+                              guestTeam: club,
+                              teamsInPlay: [hostTeam, guestTeam],
+                            });
+                          }}
                         >
                           <img
                             className="h-[75px] w-[75px] m-2 object-contain"
@@ -199,68 +155,68 @@ const App: React.FC = () => {
                 </div>
               </div>
             )}
-            {pickedHostTeam?.played.length >= 5 && (
+            {hostTeam?.played?.length >= 5 && (
               <p className="text-white">Played all matches</p>
             )}
           </div>
         )}
 
-        {match.length === 2 && (
+        {teamsInPlay.length === 2 && (
           <div className="flex flex-col items-center justify-center gap-4 h-[400px]">
             <div className="flex flex-wrap items-center justify-center gap-2 w-full">
               <div className="flex flex-col items-center justify-center w-1/5">
                 <img
-                  key={match[0].id}
+                  key={hostTeam.id}
                   className="h-[90px] w-[90px] m-2 object-contain"
-                  src={match[0]?.logo}
+                  src={hostTeam?.logo}
                   alt="logo"
                 />
                 <p className="text-center text-xs text-gray-200 font-semibold">
-                  {match[0].name}
+                  {hostTeam.name}
                 </p>
               </div>
               <div className="h-[50px]">
                 <Input
                   width="80px"
-                  name="team1Result"
-                  inputRef={team1Result}
-                  required
+                  name="hostScore"
+                  inputRef={hostScore}
+                  required={true}
                   type="number"
                   onChange={(e) => {
                     !isValidResult(e.target.value)
-                      ? setInputError(validationErrors.inputError)
-                      : setInputError('');
-                    team1Result.current.value = e.target.value;
+                      ? updateMatchArena({ error: validationErrors.inputError })
+                      : updateMatchArena({ error: null });
+                    hostScore.current.value = e.target.value;
                   }}
-                  errorMessage={inputError}
+                  errorMessage={error}
                 />
               </div>
               <p className="text-xl text-white">vs</p>
               <div className="h-[50px]">
                 <Input
                   width="80px"
-                  name="team1Result"
-                  inputRef={team2Result}
+                  name="guestScore"
+                  inputRef={guestScore}
                   required
                   type="number"
                   onChange={(e) => {
                     !isValidResult(e.target.value)
-                      ? setInputError(validationErrors.inputError)
-                      : setInputError('');
-                    team2Result.current.value = e.target.value;
+                      ? updateMatchArena({ error: validationErrors.inputError })
+                      : updateMatchArena({ error: null });
+                    guestScore.current.value = e.target.value;
                   }}
-                  errorMessage={inputError}
+                  errorMessage={error}
                 />
               </div>
               <div className="flex flex-col items-center justify-center w-1/5">
                 <img
-                  key={match[1].id}
+                  key={guestTeam.id}
                   className="h-[100px] w-[100px] m-2 object-contain"
-                  src={match[1]?.logo}
+                  src={guestTeam?.logo}
                   alt="logo"
                 />
                 <p className="text-center text-xs text-gray-200 font-semibold">
-                  {match[1].name}
+                  {guestTeam.name}
                 </p>
               </div>
             </div>
@@ -268,13 +224,26 @@ const App: React.FC = () => {
               size="178px"
               variant="secondary"
               text="Simulate Result"
-              onClick={() => simulateResult()}
+              onClick={() => {
+                simulateResult();
+
+                updateMatchArena({ isResultSimulated: true, error: null });
+              }}
             />
             <Button
               size="178px"
               text="Confirm Result"
-              onClick={() => playMatchHandler(match[0], match[1])}
-              disabled={disableBtnState}
+              onClick={() => {
+                matchSimulatorHandler(
+                  Number(hostScore.current.value),
+                  Number(guestScore.current.value)
+                );
+                playedHistoryHandler();
+                updateMatchArena({ teamsInPlay: [] });
+              }}
+              disabled={
+                error || !hostScore.current?.value || !guestScore.current?.value
+              }
             />
           </div>
         )}
