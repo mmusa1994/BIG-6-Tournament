@@ -1,13 +1,9 @@
 import React from 'react';
+import { TrophyIcon } from '@heroicons/react/24/outline';
 import { useTable } from 'react-table';
+import { ITable } from '../../types/types';
 
-type Props = {
-  columns: any;
-  data: any;
-  defaultColumn?: any;
-};
-
-const Table: React.FC<Props> = ({ columns, data }) => {
+const Table: React.FC<ITable> = ({ columns, data, allMatchPlayed }) => {
   const tableInstance = useTable({
     columns,
     data,
@@ -31,10 +27,19 @@ const Table: React.FC<Props> = ({ columns, data }) => {
           prepareRow(row);
           return (
             <tr
-              className="border-b border-white last:border-b-0"
+              className={`border-b border-white last:border-b-0
+                  ${allMatchPlayed && ' first:bg-yellow-700'}`}
               {...row.getRowProps()}
             >
-              <td className="text-xs font-bold">{i + 1}</td>
+              <td className="text-xs font-bold">
+                {allMatchPlayed && i === 0 ? (
+                  <span className="flex h-full justify-center">
+                    <TrophyIcon className="w-5 h-5" />
+                  </span>
+                ) : (
+                  i + 1
+                )}
+              </td>
               {row.cells.map((cell) => {
                 return (
                   <td {...cell.getCellProps()}>

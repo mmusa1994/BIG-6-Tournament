@@ -39,6 +39,12 @@ export interface IModal {
   minHeight?: string;
 }
 
+export interface ITable {
+  columns: any;
+  data: any;
+  allMatchPlayed?: boolean;
+}
+
 export interface ITeam {
   id?: number;
   logo?: string;

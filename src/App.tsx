@@ -17,15 +17,20 @@ const App: React.FC = () => {
 
   const data = React.useMemo(() => sortedData(matchArena.data), [matchArena]);
   const columns = React.useMemo(() => columnTemplate, []);
+  const allMatchPlayed = matchArena.playedMatches.length === 15;
+  const playBtnText = allMatchPlayed
+    ? 'Tournament finished'
+    : 'Pick teams for match';
 
   return (
     <div className="flex flex-col items-center justify-start text-center bg-gray-900 h-[100vh] w-full gap-4 pt-10">
       <h3 className="text-base text-white mb-2">Tournament Table</h3>
-      <Table columns={columns} data={data} />
+      <Table columns={columns} data={data} allMatchPlayed={allMatchPlayed} />
       <Button
         variant="secondary"
-        text="Pick teams for match"
+        text={playBtnText}
         onClick={() => updateMatchArena({ isArenaOpen: true })}
+        disabled={allMatchPlayed}
       />
       <MatchArena
         hostScore={hostScore}
@@ -33,9 +38,11 @@ const App: React.FC = () => {
         simulateResultHandler={simulateResultHandler}
       />
       {matchArena.playedMatches.length && (
-        <h3 className="text-base text-white mb-2">Matches History</h3>
+        <>
+          <h3 className="text-base text-white mb-2">Matches History</h3>
+          <MatchLogs />
+        </>
       )}
-      <MatchLogs />
     </div>
   );
 };

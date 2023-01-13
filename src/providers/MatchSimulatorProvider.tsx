@@ -106,8 +106,6 @@ export const MatchSimulatorProvider = ({
       hostTeam: null,
       guestTeam: null,
     });
-
-    console.log(matchArena);
   };
 
   return (
