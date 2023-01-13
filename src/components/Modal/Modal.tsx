@@ -52,7 +52,7 @@ const Modal = ({
                   maxHeight: '80vh',
                 }}
               >
-                <div className="flex justify-between items-start pt-4 pb-4 pl-16 rounded-t border-b border-gray-700 bg-gray-700 items-center">
+                <div className="flex justify-between pt-4 pb-4 pl-16 rounded-t border-b border-gray-700 bg-gray-700 items-center">
                   <h3 className="text-xl font-semibold text-white dark:text-white">
                     {title}
                   </h3>
