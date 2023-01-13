@@ -7,7 +7,7 @@ type Props = {
   defaultColumn?: any;
 };
 
-export const Table: React.FC<Props> = ({ columns, data }) => {
+const Table: React.FC<Props> = ({ columns, data }) => {
   const tableInstance = useTable({
     columns,
     data,
@@ -58,3 +58,5 @@ export const Table: React.FC<Props> = ({ columns, data }) => {
     </table>
   );
 };
+
+export default Table;
