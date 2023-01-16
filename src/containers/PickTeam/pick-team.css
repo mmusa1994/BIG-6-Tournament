@@ -5,6 +5,9 @@
 .header {
   font-size: small;
 }
+.club-container {
+  width: 100px;
+}
 
 @media only screen and (max-width: 600px) {
   .logo {
@@ -13,5 +16,9 @@
   }
   .header {
     font-size: x-small;
+  }
+  .club-container {
+    width: 80px;
+    font-size: 8px;
   }
 }

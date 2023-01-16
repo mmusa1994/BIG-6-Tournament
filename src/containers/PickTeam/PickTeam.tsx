@@ -17,7 +17,7 @@ const PickTeam: React.FC = () => {
           {matchArena.data.map((club: any) => (
             <div
               key={club.id}
-              className={`flex flex-col items-center justify-start w-[100px] cursor-pointer rounded hover:bg-gray-600 m-1
+              className={`club-container flex flex-col items-center justify-start cursor-pointer rounded hover:bg-gray-600 m-1
                           ${hostTeam?.id === club.id && 'bg-gray-400'}`}
               onClick={() => {
                 updateMatchArena({ hostTeam: club });
@@ -45,7 +45,7 @@ const PickTeam: React.FC = () => {
                 hostTeam?.id !== club.id && (
                   <div
                     key={club.id}
-                    className={`flex flex-col items-center justify-start w-[100px] cursor-pointer rounded hover:bg-gray-600 m-1
+                    className={`club-container flex flex-col items-center justify-start w-[100px] cursor-pointer rounded hover:bg-gray-600 m-1
                                 ${hostTeam?.id === club.id && 'bg-gray-400'}`}
                     onClick={() => {
                       updateMatchArena({
