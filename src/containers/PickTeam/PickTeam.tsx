@@ -13,7 +13,7 @@ const PickTeam: React.FC = () => {
         <h3 className="header text-white font-bold bg-green-700 w-max p-1 m-1">
           Pick the host
         </h3>
-        <div className="flex flex-wrap">
+        <div className="flex items-center justify-center flex-wrap">
           {matchArena.data.map((club: any) => (
             <div
               key={club.id}
