@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/BIG-6-Tournament/static/css/main.9445aed2.css",
-    "main.js": "/BIG-6-Tournament/static/js/main.a51ea426.js",
+    "main.css": "/BIG-6-Tournament/static/css/main.a4dbc4f1.css",
+    "main.js": "/BIG-6-Tournament/static/js/main.201b9247.js",
     "static/js/787.f6aac565.chunk.js": "/BIG-6-Tournament/static/js/787.f6aac565.chunk.js",
     "index.html": "/BIG-6-Tournament/index.html",
-    "main.9445aed2.css.map": "/BIG-6-Tournament/static/css/main.9445aed2.css.map",
-    "main.a51ea426.js.map": "/BIG-6-Tournament/static/js/main.a51ea426.js.map",
+    "main.a4dbc4f1.css.map": "/BIG-6-Tournament/static/css/main.a4dbc4f1.css.map",
+    "main.201b9247.js.map": "/BIG-6-Tournament/static/js/main.201b9247.js.map",
     "787.f6aac565.chunk.js.map": "/BIG-6-Tournament/static/js/787.f6aac565.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9445aed2.css",
-    "static/js/main.a51ea426.js"
+    "static/css/main.a4dbc4f1.css",
+    "static/js/main.201b9247.js"
   ]
 }
